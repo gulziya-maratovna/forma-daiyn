@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="kk">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ұсынылған идеялар</title>
+</head>
+<body>
+
+   <!--керек ақпаратты осы жерге жазасыз!-->
+    <ul id="ideaList">
+        <!-- Идеялар осында көрсетіледі -->
+    </ul>
+
+    <h2>Соңғы ұсынылған идеялар:</h2>
+    <div id="lastIdea">
+        <p>Қазіргі уақытта идеялар жоқ.</p>
+    </div>
+
+    <p><a href="index.html">Жаңа идея ұсыну</a></p>
+
+    <script>
+        // localStorage-тан идеялар тізімін алу
+        let ideaList = JSON.parse(localStorage.getItem("ideaList")) || [];
+
+        // Идеялар тізімін көрсету
+        let ideaListContainer = document.getElementById("ideaList");
+        if (ideaList.length > 0) {
+            ideaList.forEach((idea, index) => {
+                let li = document.createElement("li");
+                li.innerHTML = `<strong>${idea.name}:</strong> ${idea.idea} <br> (${idea.email})`;
+                ideaListContainer.appendChild(li);
+            });
+        } else {
+            document.getElementById("lastIdea").innerHTML = "<p>Қазіргі уақытта идеялар жоқ.</p>";
+        }
+
+        // Соңғы идеяны көрсету
+        if (ideaList.length > 0) {
+            let lastIdea = ideaList[ideaList.length - 1];
+            document.getElementById("lastIdea").innerHTML = 
+                `<strong>${lastIdea.name}:</strong> ${lastIdea.idea} <br> (${lastIdea.email})`;
+        }
+    </script>
+
+</body>
+</html>
